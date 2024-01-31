@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "019cd6aa-0bdc-4ee9-80b8-53ae3196690c",
+		"name": "Assignment2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32476462"
+	},
+	"item": [
+		{
+			"name": "AdminLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Aa12345678@#",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "admin@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Aa12345678@#",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test1",
+							"description": "unique",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test1@gmail.com",
+							"description": "unique",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Aa12345678@#",
+							"type": "text"
+						},
+						{
+							"key": "confirmPassword",
+							"value": "Aa12345678@#",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/auth/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refreshToken",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/auth/refresh_token",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"refresh_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "Hello 132",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "This is first todofadf",
+							"type": "text"
+						},
+						{
+							"key": "assignedTo",
+							"value": "test2@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "priority",
+							"value": "High",
+							"type": "text"
+						},
+						{
+							"key": "deadline",
+							"value": "2024-01-31T14:04",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/admin/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/employee/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employee",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/employee/my",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employee",
+						"my"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "taskId",
+							"value": "65b9dd9d6221595761c17150",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "Pending",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/employee/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employee",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Performance",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
