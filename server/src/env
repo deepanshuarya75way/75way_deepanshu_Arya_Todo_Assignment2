@@ -1,0 +1,8 @@
+MONGO_URI = "mongodb+srv://deep:EzmfKgdmOQjPrYMY@cluster0.wknrtpw.mongodb.net/Todo?retryWrites=true&w=majority"
+JWT_SECRET = "e70a77f5bdb8c50a2b5486cb097c3e231a308e0f57b57a613b7c19efbde95a00940624acc6a4c7c0c66b2e59ca7f98991e20ed1054c9c15e1db558893f23080a"
+JWT_REFRESH_SECRET = "eb28d8278e050be48e2ba9c8afbe6fddb8b5bb7d65fdc8bae98287544c0f0464ca45a4fc81d7d6380cbd2893de51de11a65af877841c0d6354e0dd95e98ac8e6"
+EMAIL_USER=erdeepanshuarya@outlook.com
+EMAIL_HOST= "smtp.office365.com"
+EMAIL_PASS= "6275waydeep841()"
+EMAIL_PORT=587
+PORT = 3000
