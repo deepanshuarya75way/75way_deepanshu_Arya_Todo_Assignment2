@@ -16,7 +16,7 @@
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "admin@admin.com",
+							"value": "deepanshu.da85@gmail.com",
 							"type": "text"
 						},
 						{
@@ -50,7 +50,7 @@
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "admin@admin.com",
+							"value": "9805vivacious@mitico.org",
 							"type": "text"
 						},
 						{
@@ -186,12 +186,12 @@
 					"urlencoded": [
 						{
 							"key": "title",
-							"value": "Hello 132",
+							"value": "testing task",
 							"type": "text"
 						},
 						{
 							"key": "body",
-							"value": "This is first todofadf",
+							"value": "This is first todofadf34",
 							"type": "text"
 						},
 						{
@@ -200,13 +200,13 @@
 							"type": "text"
 						},
 						{
-							"key": "priority",
+							"key": "prio",
 							"value": "High",
 							"type": "text"
 						},
 						{
 							"key": "deadline",
-							"value": "2024-01-31T14:04",
+							"value": "2024-01-31T20:25",
 							"type": "text"
 						}
 					]
@@ -299,25 +299,6 @@
 		},
 		{
 			"name": "getUser",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/user/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"user",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getUser Copy",
 			"request": {
 				"method": "GET",
 				"header": [],
