@@ -94,7 +94,7 @@ const Auth = () => {
             placeholder="username"
             name="username"
             onChange={handleChange}
-            ref={usernameRef}
+            autoFocus
           />
           <div className={errors.username ? 'invalid-feedback' : 'valid-feedback'}>
             {errors.username ? errors.username.message : ''}
