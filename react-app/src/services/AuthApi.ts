@@ -27,9 +27,15 @@ export const authApi = Api.injectEndpoints({
                 url: '/user',
                 method: 'get'
             })
+        }),
+        getRole: builder.query<Object, void>({
+            query:() => ({
+                url: 'auth/getRole',
+                method: 'get'
+            })
         })
     }),
     overrideExisting: false,
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutQuery, useLazyLogoutQuery, useGetTodoQuery, useLazyGetTodoQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useLogoutQuery, useLazyLogoutQuery, useGetTodoQuery, useLazyGetTodoQuery, useGetRoleQuery, useLazyGetRoleQuery } = authApi

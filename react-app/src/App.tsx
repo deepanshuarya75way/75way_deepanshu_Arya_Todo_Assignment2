@@ -10,6 +10,7 @@ import { setUser } from './store/reducers/authSlice';
 import { useAppDispatch } from './hooks/hooks';
 import CreateTodo from './pages/createTodo';
 import Kanban from './pages/Kanban';
+import Protected from './ProtectedRoutes';
 
 
 function App() {
@@ -27,12 +28,13 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/createTodo" element={<CreateTodo />} />
+        <Route path='/createTodo' element={<Protected url='/createTodo' Components={<CreateTodo />} />} />
+         
           <Route path="/" element={<Navigate to="/createTodo" replace />} />
           <Route path='/auth' element={<Navigate to="/auth/login" replace />} />
           <Route path="/auth/register" element={<Auth />} />
           <Route path="/auth/login" element={<Login />} />
-          <Route path="/dashboard" element={< Dashboard />} />
+          <Route path="/dashboard" element={<Protected url='/dashboard' Components={<Dashboard  />} />} />
           <Route path="/user" element={< Kanban />} />
         </Routes>
       </BrowserRouter>

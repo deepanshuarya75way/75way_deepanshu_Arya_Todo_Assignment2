@@ -64,11 +64,10 @@ const Auth = () => {
   
   useEffect(() => {
     if (isLoginSuccess) {
-      const {user } = loginData
-      console.log(loginData)
+      const {user} = loginData
       dispatch(setUser({user}))
       toast.success("Login Success");
-      navigate("/dashboard");
+      navigate("/");
     }
     if(isLoginError){
         // @ts-ignore
@@ -80,7 +79,6 @@ const Auth = () => {
   
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
-    console.log(data);
     if (email && password) {
       await loginUser({ email, password });
     } else {

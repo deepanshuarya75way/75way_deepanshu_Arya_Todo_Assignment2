@@ -72,7 +72,6 @@ const Auth = () => {
   });
   const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormFields>({ resolver: yupResolver(schema) })
   const onSubmit: SubmitHandler<SignUpFormFields> = async (data) => {
-    console.log(data);
     if(username && firstName && lastName && email && password && confirmPassword){
       await registerUser({username, firstName, lastName, email, password, confirmPassword})
     }

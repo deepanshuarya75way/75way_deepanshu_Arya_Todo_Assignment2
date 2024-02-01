@@ -11,3 +11,4 @@ routes.use('/auth', authRoutes)
 routes.use('/user', userRoutes)
 routes.use('/admin', adminRoutes)
 routes.use('/employee', employeeRoutes)
+

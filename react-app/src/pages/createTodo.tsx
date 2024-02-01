@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 import { useCreateTodoMutation } from "../services/TodoApi";
+import { useLazyGetRoleQuery } from "../services/AuthApi";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "../components/Logout";
@@ -37,6 +38,16 @@ const CreateTodo = () => {
           error: createTodoError,
         },
       ] = useCreateTodoMutation();
+
+      const [
+        getRole,
+        {
+          data: getRoleData,
+          isSuccess: getRoleIsSuccess,
+          isError: getRoleIsError,
+          error: getRoleError,
+        },
+      ] = useLazyGetRoleQuery();
     // const dispatch = useAppDispatch()
     const schema = yup.object({
         assignedTo: yup
@@ -73,7 +84,6 @@ const CreateTodo = () => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        console.log(e)
         const { name, value } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
@@ -81,8 +91,7 @@ const CreateTodo = () => {
     useEffect(() => {
         if (createTodoSuccess) {
             const { user } = createTodoData
-            console.log(createTodoData)
-            // dispatch(setUser({ user }))
+            console.log(user)
             toast.success("Todo created successfully");
             navigate("/dashboard");
         }
@@ -92,11 +101,28 @@ const CreateTodo = () => {
 
     }, [createTodoSuccess, createTodoIsError]);
 
+   
+
+    // useEffect(()=>{
+    //     const asF = async ()=>{
+    //         await getRole()
+    //         if(getRoleError?.error?.data?.error == "jwt_expired"){
+    //             setTimeout(async () => {
+    //                await getRole()
+    //               }, 1000)
+    //         }
+    //         if(getRoleIsSuccess){
+    //             console.log(getRoleData?.data?.role)
+    //         }else(console.log(getRoleError?.error?.data?.error))
+    //     }
+    //     asF()
+
+         
+    // }, [])
     
 
 
     const onSubmit: SubmitHandler<CreateTodoFields> = async (data) => {
-        console.log(data);
          let prio = data.priority
           if(title && body && assignedTo && data.priority && deadline){
             await createTodo({title, body, assignedTo, prio, deadline});
@@ -201,7 +227,6 @@ const CreateTodo = () => {
                     Submit
                 </button>
             </form>
-            <Link to="/auth/register">Register?</Link>
         </>
     );
 };

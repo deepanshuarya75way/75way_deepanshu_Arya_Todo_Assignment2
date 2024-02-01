@@ -57,8 +57,8 @@ const loginUser = async (req: Request, res: Response) => {
     try {
       await user.save();
       return res
-        .cookie("access_token", access_token, { httpOnly: true })
-        .cookie("refresh_token", refresh_token, { httpOnly: true })
+        .cookie("access_token", access_token, { httpOnly: false })
+        .cookie("refresh_token", refresh_token, { httpOnly: false })
         .status(200)
         .json({
           success: "User Logged In",
@@ -125,7 +125,7 @@ const refreshToken = async (req: Request, res: Response) => {
     }
     const access_token = generateAccessToken(user._id);
     return res
-      .cookie("access_token", access_token, { httpOnly: true })
+      .cookie("access_token", access_token, { httpOnly: false })
       .status(200)
       .json({
         success: "Access Token Refreshed"
@@ -137,9 +137,18 @@ const refreshToken = async (req: Request, res: Response) => {
   }
 };
 
+const getRole = async (req: Request, res: Response) => {
+  const user = await User.findById(req.userId)
+  res.status(200).json({
+    success: "request proccessed",
+    role: user?.role
+  })
+}
+
 const authController = {
   loginUser,
   logoutUser,
   refreshToken,
+  getRole
 };
 export default authController;

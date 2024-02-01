@@ -7,28 +7,27 @@ import { useEffect } from "react";
 
 const Logout = () => {
   const { user } = useAppSelector(selectAuth);
-  console.log(user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logOutUser,{data, isError, isSuccess, error}] = useLazyLogoutQuery()
   
 
   useEffect(()=>{
-
     if(isSuccess){
       toast.success("User Logged Out");
-      navigate("/auth")
+
     }else{
-      console.log(error)
+      console.log(error, "error")
     }
 
   }, [isError, isSuccess])
 
   const handleLogout = async () => {
-    await logOutUser();
-    dispatch(resetUser());
-    navigate("/auth");
-  };
+    await logOutUser()
+      dispatch(resetUser());
+      
+      navigate("/auth/login")
+  }
   return (
     <>
       <button className="btn btn-primary" onClick={() => handleLogout()}>

@@ -6,15 +6,14 @@ import { useLazyLogoutQuery, useLazyGetTodoQuery } from "../services/AuthApi";
 import { useEffect } from "react";
 
 const Dashboard = () => {
+
   const { user } = useAppSelector(selectAuth);
-  console.log(user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logOutUser,{data, isError, isSuccess, error}] = useLazyLogoutQuery()
   const [getTodo, {data: dataTodo, isError: isErrorTodo, isSuccess: isSuccessTodo, error: errorTodo}] = useLazyGetTodoQuery()
-
+  
   useEffect(()=>{
-
     if(isSuccess){
       toast.success("User Logged Out");
       navigate("/auth")
@@ -31,6 +30,7 @@ const Dashboard = () => {
       toast.error((errorTodo as any)?.data?.error)
     }
   },[isSuccessTodo, isErrorTodo])
+  
   const handleLogout = async () => {
     await logOutUser();
     dispatch(resetUser());
@@ -43,6 +43,7 @@ const Dashboard = () => {
   return (
     <>
       <div>Dashboard</div>
+      <div>User: {user?.name}</div>
       <button className="btn btn-primary" onClick={() => handleLogout()}>
         Logout
       </button>
