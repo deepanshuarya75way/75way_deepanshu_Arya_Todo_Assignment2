@@ -15,10 +15,7 @@ import Protected from './ProtectedRoutes';
 
 function App() {
   const dispatch = useAppDispatch()
-  const user = JSON.parse(localStorage.getItem("user") || "{}")
-  useEffect(() => {
-    dispatch(setUser(user))
-  }, [])
+  
 
 
 
@@ -28,13 +25,12 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-        <Route path='/createTodo' element={<Protected url='/createTodo' Components={<CreateTodo />} />} />
-         
-          <Route path="/" element={<Navigate to="/createTodo" replace />} />
+        <Route path='/createTodo' element={<Protected url='/createTodo' role={['admin']} Components={<CreateTodo />} />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path='/auth' element={<Navigate to="/auth/login" replace />} />
           <Route path="/auth/register" element={<Auth />} />
           <Route path="/auth/login" element={<Login />} />
-          <Route path="/dashboard" element={<Protected url='/dashboard' Components={<Dashboard  />} />} />
+          <Route path="/dashboard" element={<Protected url='/dashboard' role={['admin', 'employee']} Components={<Dashboard  />} />} />
           <Route path="/user" element={< Kanban />} />
         </Routes>
       </BrowserRouter>

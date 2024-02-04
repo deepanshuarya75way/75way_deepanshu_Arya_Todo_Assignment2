@@ -16,7 +16,7 @@ const Logout = () => {
     if(isSuccess){
       toast.success("User Logged Out");
 
-    }else{
+    }else if(isError){
       console.log(error, "error")
     }
 

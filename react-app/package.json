@@ -34,6 +34,7 @@
     "react-router-dom": "^6.21.3",
     "react-textarea-autosize": "^8.5.3",
     "react-toastify": "^10.0.4",
+    "redux-persist": "^6.0.0",
     "universal-cookie": "^7.0.2",
     "usehooks-ts": "^2.10.0",
     "uuid": "^9.0.1",
