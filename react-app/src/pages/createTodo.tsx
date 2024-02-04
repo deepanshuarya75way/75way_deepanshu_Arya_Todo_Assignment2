@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 import { useCreateTodoMutation } from "../services/TodoApi";
-import { useLazyGetRoleQuery } from "../services/AuthApi";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "../components/Logout";
@@ -32,22 +31,12 @@ const CreateTodo = () => {
     const [
         createTodo,
         {
-          data: createTodoData,
-          isSuccess: createTodoSuccess,
-          isError: createTodoIsError,
-          error: createTodoError,
+            data: createTodoData,
+            isSuccess: createTodoSuccess,
+            isError: createTodoIsError,
+            error: createTodoError,
         },
-      ] = useCreateTodoMutation();
-
-      const [
-        getRole,
-        {
-          data: getRoleData,
-          isSuccess: getRoleIsSuccess,
-          isError: getRoleIsError,
-          error: getRoleError,
-        },
-      ] = useLazyGetRoleQuery();
+    ] = useCreateTodoMutation();
     // const dispatch = useAppDispatch()
     const schema = yup.object({
         assignedTo: yup
@@ -101,7 +90,7 @@ const CreateTodo = () => {
 
     }, [createTodoSuccess, createTodoIsError]);
 
-   
+
 
     // useEffect(()=>{
     //     const asF = async ()=>{
@@ -117,20 +106,20 @@ const CreateTodo = () => {
     //     }
     //     asF()
 
-         
+
     // }, [])
-    
+
 
 
     const onSubmit: SubmitHandler<CreateTodoFields> = async (data) => {
-         let prio = data.priority
-          if(title && body && assignedTo && data.priority && deadline){
-            await createTodo({title, body, assignedTo, prio, deadline});
-            
+        let prio = data.priority
+        if (title && body && assignedTo && data.priority && deadline) {
+            await createTodo({ title, body, assignedTo, prio, deadline });
 
-          } else {
+
+        } else {
             toast.error("All1 firlds are required");
-          }
+        }
     };
     return (
         <>
@@ -190,7 +179,7 @@ const CreateTodo = () => {
                             required: "Field is required fields",
                         })}
                         type="email"
-                        placeholder="Description"
+                        placeholder="Assigne to "
                         name="assignedTo"
                         onChange={handleChange}
                     />
@@ -203,7 +192,7 @@ const CreateTodo = () => {
                     <div className="form-group">
                         <label htmlFor="priority">Priority</label>
                         <select {...register('priority')} name="priority" className="form-control" id="priority"
-                        onChange={handleChange}>
+                            onChange={handleChange}>
                             <option value="">Select priority</option>
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
@@ -215,8 +204,8 @@ const CreateTodo = () => {
                 <div className="col-md-12">
                     <div className="form-group">
                         <label htmlFor="deadline">Date and Time</label>
-                        <input {...register('deadline')} type="datetime-local" className="form-control" id="deadline" 
-                        onChange={handleChange}
+                        <input {...register('deadline')} type="datetime-local" className="form-control" id="deadline"
+                            onChange={handleChange}
                         />
                         {errors.deadline && <p className="text-danger">{errors.deadline.message}</p>}
                     </div>

@@ -7,6 +7,7 @@ export interface AuthState {
         _id: string | null
         name: string | null
         email: string | null
+        role: string | null
     }
 }
 
@@ -15,6 +16,7 @@ const initialState: AuthState = {
         _id: null,
         name: null,
         email: null,
+        role: null
     }
 }
 
@@ -24,11 +26,14 @@ export const authSlice = createSlice({
     reducers: {
         setUser: (state, action: PayloadAction<AuthState>) => {
             const { user } = action.payload
-            console.log(user)
+            //save to localstorage
+            localStorage.setItem('user', JSON.stringify(user))
             state.user = user
             return state
         },
         resetUser: (state) => {
+            //remove from localstorage
+            localStorage.removeItem('user')
             state = initialState
             return state
         }

@@ -19,13 +19,20 @@ function Kanban() {
           isSuccess: getAllTodoSuccess,
           isError: getAllTodoIsError,
           error: getAllTodoError,
+          isFetching: getAllTodoIsFetching,
         },
       ] = useLazyGetAllTodoQuery();
+  
+  useEffect(()=>{
+
+  }, [getAllTodoIsFetching])
+
+
     useEffect(()=>{
         if(getAllTodoSuccess){
             console.log(getAllTodoData)
             toast.success("All Todo Fetched");
-        }else{
+        }else if(getAllTodoIsError){
             console.log(getAllTodoError)
         }
     }, [getAllTodoSuccess, getAllTodoIsError])
@@ -53,7 +60,6 @@ function Kanban() {
           >
             <Column column={ColumnType.TO_DO} />
             <Column column={ColumnType.IN_PROGRESS} />
-            <Column column={ColumnType.BLOCKED} />
             <Column column={ColumnType.COMPLETED} />
           </SimpleGrid>
         </Container>

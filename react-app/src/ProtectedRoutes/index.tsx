@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../hooks/hooks";
+import { selectAuth } from "../store/reducers/authSlice";
 
 // @ts-ignore
-const Protected = ({ Components, url }) => {
+const Protected = ({ Components, url, role }) => {
     function getCookie() {
         var arrayb = document.cookie.split(";");
         for (const item of arrayb) {
@@ -11,13 +13,12 @@ const Protected = ({ Components, url }) => {
           }
         }
       }
-
+  const { user } = useAppSelector(selectAuth);
   const navigate = useNavigate()
   async function getToken() {
     try {
       const token = getCookie();
-      
-      if (token) {
+      if (token && role.includes(user.role)) {
         return true;
       } else {
         return false;

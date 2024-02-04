@@ -73,10 +73,22 @@ const createTask = async (req: Request, res: Response) => {
             task: newTask
         });
     }
-    catch (err: any) {
-        res.status(400).json({
-            error: err.message
-        });
+    catch (error: any) {
+        console.log(error)
+        if (error.name === 'ValidationError') {
+            return res.status(401).json({
+                error: error.message
+            })
+        }
+        if (error.code === 11000) {
+            return res.status(401).json({
+                error: `Duplicate entry for - ${JSON.stringify(error.keyValue)}`
+            })
+        }
+
+        return res.status(400).json({
+            error: "Something went wrong!"
+        })
     }
 
 }

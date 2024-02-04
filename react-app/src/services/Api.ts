@@ -8,7 +8,6 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryReauth = async (args: any, api:any , extraOptions: any) => {
     let result = await baseQuery(args, api, extraOptions)
-    console.log(result, "result")
     // @ts-ignore
     if(result?.error?.data?.error === "jwt expired"){
         
