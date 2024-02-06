@@ -68,7 +68,6 @@ function Task({
           focusBorderColor="none"
           color="gray.700"
         />
-        Hi
       </Box>
       
     </ScaleFade>

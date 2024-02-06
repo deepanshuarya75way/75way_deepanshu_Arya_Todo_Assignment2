@@ -4,18 +4,46 @@ import { v4 as uuidv4 } from 'uuid';
 import { ColumnType } from '../utils/enums';
 import { TaskModel } from '../utils/models';
 import { useLazyGetAllTodoQuery } from '../services/TodoApi';
+import { set } from 'react-hook-form';
 
-// async function formatTasks(TaskArray: any){
-//   const tasksF: TaskModel[] = await TaskArray.map((task: any) => ({
-//     id: task._id,
-//     title: task.title,
-//     column: task.status === "Pendind" ? ColumnType.IN_PROGRESS :  ColumnType.COMPLETED,
-//     color: 'blue'
-//   }));
-//   return tasksF
-// }
+async function formatTasks(TaskArray: any){
+  const tasksF: TaskModel[] = await TaskArray.map((task: any) => ({
+    id: task._id,
+    title: task.title,
+    column: task.status === "Pending" ? ColumnType.IN_PROGRESS :  ColumnType.COMPLETED,
+    color: 'blue'
+  }));
+  const segregatedTasks = await segregateTasks(tasksF)
+  return segregatedTasks
+  
+}
+
+async function segregateTasks(tasks: TaskModel[]) {
+  const segregatedTasks: {
+    [key in ColumnType]: TaskModel[];
+  } = {
+    [ColumnType.TO_DO]: [],
+    [ColumnType.IN_PROGRESS]: [],
+    [ColumnType.BLOCKED]: [],
+    [ColumnType.COMPLETED]: [],
+  };
+  tasks.forEach((task) => {
+    segregatedTasks[task.column].push(task);
+  });
+  console.log("segregatedTasks", segregatedTasks)
+  return segregatedTasks;
+}
+
 function useTaskCollection() {
-//   const [tasks1, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<{
+    [key in ColumnType]: TaskModel[];
+  }>({
+    [ColumnType.TO_DO]: [],
+    [ColumnType.IN_PROGRESS]: [],
+    [ColumnType.BLOCKED]: [],
+    [ColumnType.COMPLETED]: [],
+  });
+
 //   const [
 //     getAllTodo,
 //     {
@@ -26,40 +54,30 @@ function useTaskCollection() {
 //     },
 //   ] = useLazyGetAllTodoQuery();
   
-//   useEffect(()=> {
-//     async function makeTodoGetReq(){
+//   useEffect(() => {
+//     async function fetchData() {
 //       await getAllTodo();
 //     }
-//     makeTodoGetReq()
-//   }, [])
+//     fetchData();
+//   }, []);
 
 //   useEffect(() => {
 //     if(getAllTodoIsSuccess){
 //       const TaskArray = getAllTodoData.tasks
-//       console.log("TaskArray", TaskArray)
-//       console.log(typeof(TaskArray), TaskArray.length)
-//       setTasks(formatTasks(TaskArray))
-//       console.log("tasks", tasks1)
+//       formatTasks(TaskArray).then((tasksF) => {
+//         setTasks(tasksF)
+//       })
 //     }
 //     if(getAllTodoIsError){
 //       console.log("Error", getAllTodoError)
 //     }
 // }, [getAllTodoIsSuccess, getAllTodoIsError])
 
-//   useEffect(() => {
-//     if(getAllTodoIsSuccess){
-//       const TaskArray = getAllTodoData?.tasks
-//       console.log("TaskArray", TaskArray)
-//       console.log(typeof(TaskArray), TaskArray.length)
-//       formatTasks(TaskArray).then((tasksF) => {
-//         setTasks(tasksF)
-//       })
-//       console.log("tasks", tasks1)
-//     }
-//     if(getAllTodoIsError){
-//       console.log("Error", getAllTodoError)
-//     }
-//   }, [getAllTodoIsSuccess, getAllTodoIsError])
+// useEffect(() => {
+//   if(tasks){
+//     console.log("tasks", tasks)
+//   }
+// }, [tasks])
 
 
   return useLocalStorage<{

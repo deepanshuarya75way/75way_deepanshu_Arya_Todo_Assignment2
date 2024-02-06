@@ -6,38 +6,107 @@ import Column from '../components/Column';
 import DarkModeIconButton from '../components/DarkModeIconButton';
 import { ColumnType } from '../utils/enums';
 import { useLazyGetAllTodoQuery } from '../services/TodoApi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { TaskModel } from '../utils/models';
+import { set } from 'react-hook-form';
+
+
+
+async function formatTasks(TaskArray: any){
+  const tasksF: TaskModel[] = await TaskArray.map((task: any) => ({
+    id: task._id,
+    title: task.title,
+    column: task.status === "Pending" ? ColumnType.IN_PROGRESS :  ColumnType.COMPLETED,
+    color: `#${Math.floor(Math.random()*16777215).toString(16)}`
+  }));
+  const segregatedTasks = await segregateTasks(tasksF)
+  return segregatedTasks
+  
+}
+
+async function segregateTasks(tasks: TaskModel[]) {
+  const segregatedTasks: {
+    [key in ColumnType]: TaskModel[];
+  } = {
+    [ColumnType.TO_DO]: [],
+    [ColumnType.IN_PROGRESS]: [],
+    [ColumnType.BLOCKED]: [],
+    [ColumnType.COMPLETED]: [],
+  };
+  tasks.forEach((task) => {
+    segregatedTasks[task.column].push(task);
+  });
+  console.log("segregatedTasks", segregatedTasks)
+  return segregatedTasks;
+}
 
 
 
 function Kanban() {
-    const [
-        getAllTodo,
-        {
-          data: getAllTodoData,
-          isSuccess: getAllTodoSuccess,
-          isError: getAllTodoIsError,
-          error: getAllTodoError,
-          isFetching: getAllTodoIsFetching,
-        },
-      ] = useLazyGetAllTodoQuery();
+  const [loading, setloading] = useState(true);
+  const [tasks, setTasks] = useState<{
+    [key in ColumnType]: TaskModel[];
+  }>({
+    [ColumnType.TO_DO]: [],
+    [ColumnType.IN_PROGRESS]: [],
+    [ColumnType.BLOCKED]: [],
+    [ColumnType.COMPLETED]: [],
+  });
+
+  const [
+    getAllTodo,
+    {
+      data: getAllTodoData,
+      isSuccess: getAllTodoIsSuccess,
+      isError: getAllTodoIsError,
+      error: getAllTodoError,
+    },
+  ] = useLazyGetAllTodoQuery();
   
-  useEffect(()=>{
 
-  }, [getAllTodoIsFetching])
-
-
-    useEffect(()=>{
-        if(getAllTodoSuccess){
-            console.log(getAllTodoData)
-            toast.success("All Todo Fetched");
-        }else if(getAllTodoIsError){
-            console.log(getAllTodoError)
+      useEffect(() => {
+        async function fetchData() {
+          await getAllTodo();
         }
-    }, [getAllTodoSuccess, getAllTodoIsError])
+        fetchData();
+      }, []);
+    
+      useEffect(() => {
+        if(getAllTodoIsSuccess){
+          const TaskArray = getAllTodoData.tasks
+          formatTasks(TaskArray).then((tasksF) => {
+            setTasks(tasksF)
+          })
+        }
+        if(getAllTodoIsError){
+          console.log("Error", getAllTodoError)
+        }
+    }, [getAllTodoIsSuccess, getAllTodoIsError])
+    
+    useEffect(() => {
+      if(tasks){
+        console.log("tasks", tasks)
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+        setloading(false)
+      }
+    }, [tasks])
+
+    // useEffect(()=>{
+    //     if(getAllTodoSuccess){
+    //         toast.success("All Todo Fetched");
+    //     }else if(getAllTodoIsError){
+    //         console.log(getAllTodoError)
+    //     }
+    // }, [getAllTodoSuccess, getAllTodoIsError])
+
+if(loading){
+  console.log("Loading")
+  return <div>Loading...</div>
+}
 
   return (
+    
     <main>
       <Heading
         fontSize={{ base: '4xl', sm: '5xl', md: '6xl' }}
@@ -55,10 +124,10 @@ function Kanban() {
       <DndProvider backend={HTML5Backend}>
         <Container maxWidth="container.lg" px={4} py={10}>
           <SimpleGrid
-            columns={{ base: 1, md: 4 }}
-            spacing={{ base: 16, md: 4 }}
+            columns={{ base: 1, md: 2 }}
+            spacing={{ base: 16, md: 2 }}
           >
-            <Column column={ColumnType.TO_DO} />
+            {/* <Column column={ColumnType.TO_DO} /> */}
             <Column column={ColumnType.IN_PROGRESS} />
             <Column column={ColumnType.COMPLETED} />
           </SimpleGrid>
