@@ -54,7 +54,7 @@ function Column({ column }: { column: ColumnType }) {
           {column}
         </Badge>
       </Heading>
-      <IconButton
+      {/* <IconButton
         size="xs"
         w="full"
         color={useColorModeValue('gray.500', 'gray.400')}
@@ -66,7 +66,7 @@ function Column({ column }: { column: ColumnType }) {
         colorScheme="black"
         aria-label="add-task"
         icon={<AddIcon />}
-      />
+      /> */}
       <Stack
         ref={dropRef}
         direction={{ base: 'row', md: 'column' }}

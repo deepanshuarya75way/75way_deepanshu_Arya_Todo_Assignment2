@@ -14,11 +14,6 @@ import Protected from './ProtectedRoutes';
 
 
 function App() {
-  const dispatch = useAppDispatch()
-  
-
-
-
   return (
     <div className="App">
 
@@ -31,7 +26,7 @@ function App() {
           <Route path="/auth/register" element={<Auth />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/dashboard" element={<Protected url='/dashboard' role={['admin', 'employee']} Components={<Dashboard  />} />} />
-          <Route path="/user" element={< Kanban />} />
+          <Route path="/user" element={<Protected url='/user' role={['admin', 'employee']} Components={<Kanban  />} />} />
         </Routes>
       </BrowserRouter>
       {/* </ErrorBoundary> */}

@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { TaskModel } from '../utils/models';
 import { set } from 'react-hook-form';
 import {colors} from '../utils/helpers'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -45,6 +46,7 @@ async function segregateTasks(tasks: TaskModel[]) {
 
 
 function Kanban() {
+  const navigate = useNavigate();
   const [loading, setloading] = useState(true);
   const [tasks, setTasks] = useState<{
     [key in ColumnType]: TaskModel[];
@@ -95,14 +97,6 @@ function Kanban() {
 
     },[tasks])
 
-    // useEffect(()=>{
-    //     if(getAllTodoSuccess){
-    //         toast.success("All Todo Fetched");
-    //     }else if(getAllTodoIsError){
-    //         console.log(getAllTodoError)
-    //     }
-    // }, [getAllTodoSuccess, getAllTodoIsError])
-
 if(loading){
   console.log("Loading")
   return <div>Loading...</div>
@@ -122,7 +116,8 @@ if(loading){
         Kanban
       </Heading>
       {/* create a button using chakra ui */}
-      <Button onClick={() => getAllTodo()}>Get All Todo</Button>
+      {/* <Button onClick={() => getAllTodo()}>Get All Todo</Button> */}
+      <Button onClick={() => navigate('/createTodo')}>Create Todo</Button>
       <DarkModeIconButton position="absolute" top={0} right={2} />
       <DndProvider backend={HTML5Backend}>
         <Container maxWidth="container.lg" px={4} py={10}>
