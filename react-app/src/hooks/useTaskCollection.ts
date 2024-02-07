@@ -44,6 +44,13 @@ function useTaskCollection() {
     [ColumnType.COMPLETED]: [],
   });
 
+  // setTasks(localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks') as string) : {
+  //   [ColumnType.TO_DO]: [],
+  //   [ColumnType.IN_PROGRESS]: [],
+  //   [ColumnType.BLOCKED]: [],
+  //   [ColumnType.COMPLETED]: [],
+  // })
+
 //   const [
 //     getAllTodo,
 //     {
@@ -79,8 +86,10 @@ function useTaskCollection() {
 //   }
 // }, [tasks])
 
+// return JSON.parse(localStorage.getItem('tasks') ) 
 
-  return useLocalStorage<{
+
+return useLocalStorage<{
     [key in ColumnType]: TaskModel[];
   }>('tasks', {
     Todo: [
@@ -117,5 +126,7 @@ function useTaskCollection() {
     ],
   });
 }
+
+
 
 export default useTaskCollection

@@ -10,7 +10,7 @@ const MAX_TASK_PER_COLUMN = 100;
 
 function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();
-
+  console.log("tasks", tasks)
   const columnTasks = tasks[column];
 
   const addEmptyTask = useCallback(() => {

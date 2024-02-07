@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { TaskModel } from '../utils/models';
 import { set } from 'react-hook-form';
+import {colors} from '../utils/helpers'
 
 
 
@@ -18,7 +19,7 @@ async function formatTasks(TaskArray: any){
     id: task._id,
     title: task.title,
     column: task.status === "Pending" ? ColumnType.IN_PROGRESS :  ColumnType.COMPLETED,
-    color: `#${Math.floor(Math.random()*16777215).toString(16)}`
+    color: colors[Math.floor(Math.random() * colors.length)]
   }));
   const segregatedTasks = await segregateTasks(tasksF)
   return segregatedTasks
@@ -85,12 +86,14 @@ function Kanban() {
     }, [getAllTodoIsSuccess, getAllTodoIsError])
     
     useEffect(() => {
-      if(tasks){
+      if(tasks['In Progress'].length > 0 || tasks['Completed'].length > 0){
+
         console.log("tasks", tasks)
         localStorage.setItem("tasks", JSON.stringify(tasks))
         setloading(false)
       }
-    }, [tasks])
+
+    },[tasks])
 
     // useEffect(()=>{
     //     if(getAllTodoSuccess){
